@@ -1,15 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { GloryTree } from "@/components/glory-tree"
-import { HeroModal } from "@/components/hero-modal"
 import { heroesData, getHeroGroups, type Hero } from "@/lib/heroes-data"
 import { Star, ChevronDown } from "lucide-react"
 
 export default function HomePage() {
-  const [selectedHero, setSelectedHero] = useState<Hero | null>(null)
   const heroGroups = getHeroGroups(heroesData, 4)
+
+  // Функция для получения URL героя
+  const getHeroUrl = (hero: Hero) => `/hero/${hero.id}`
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -171,7 +172,9 @@ export default function HomePage() {
                 <GloryTree
                   heroes={group}
                   treeIndex={index}
-                  onHeroClick={setSelectedHero}
+                  onHeroClick={(hero) => {
+                    window.location.href = getHeroUrl(hero)
+                  }}
                 />
               </div>
             ))}
@@ -224,9 +227,6 @@ export default function HomePage() {
           </p>
         </div>
       </footer>
-
-      {/* Hero Modal */}
-      <HeroModal hero={selectedHero} onClose={() => setSelectedHero(null)} />
     </div>
   )
 }
