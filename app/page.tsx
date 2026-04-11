@@ -108,10 +108,9 @@ export default function HomePage() {
               <div className="text-sm text-muted-foreground uppercase tracking-wider">Память</div>
             </div>
           </motion.div>
-
         </div>
 
-        {/* Scroll indicator - moved outside content div */}
+        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -139,12 +138,9 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <p className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground italic mb-6 text-balance">
-              &quot;Никто не забыт, ничто не забыто&quot;
+            <p className="text-2xl md:text-3xl lg:text-4xl font-medium text-foreground mb-6 text-balance">
+              Никто не забыт, ничто не забыто
             </p>
-            <footer className="text-muted-foreground">
-              — Девиз Аллеи Славы
-            </footer>
           </motion.blockquote>
         </div>
       </section>
@@ -169,14 +165,15 @@ export default function HomePage() {
           </motion.div>
 
           {/* Trees grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-12 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-8 md:gap-12 justify-items-center">
             {heroGroups.map((group, index) => (
-              <GloryTree
-                key={index}
-                heroes={group}
-                treeIndex={index}
-                onHeroClick={setSelectedHero}
-              />
+              <div key={`tree-wrapper-${index}`} className="w-full flex justify-center">
+                <GloryTree
+                  heroes={group}
+                  treeIndex={index}
+                  onHeroClick={setSelectedHero}
+                />
+              </div>
             ))}
           </div>
         </div>
