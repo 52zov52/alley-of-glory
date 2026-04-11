@@ -26,6 +26,10 @@ export function HeroModal({ hero, onClose }: HeroModalProps) {
     }
   }
 
+  const handleVideoEnded = () => {
+    setIsPlaying(false)
+  }
+
   return (
     <AnimatePresence>
       {hero && (
@@ -128,47 +132,48 @@ export function HeroModal({ hero, onClose }: HeroModalProps) {
               </motion.div>
 
               {/* Video section */}
-              {hero.videoUrl && (
+              {hero.videoLocalPath && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                 >
                   <h3 className="text-lg font-semibold text-foreground mb-3">Обращение героя</h3>
-                  <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
-                    {hero.videoUrl.includes("youtube") ? (
-                      <iframe
-                        src={hero.videoUrl}
-                        className="absolute inset-0 w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <>
-                        <video
-                          ref={videoRef}
-                          src={hero.videoUrl}
-                          className="w-full h-full object-cover"
-                          poster={hero.posterUrl}
-                          onEnded={() => setIsPlaying(false)}
-                        />
-                        <button
-                          onClick={toggleVideo}
-                          className="absolute inset-0 flex items-center justify-center bg-background/30 
-                                     hover:bg-background/40 transition-colors group"
-                        >
-                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center
-                                          group-hover:scale-110 transition-transform shadow-lg">
-                            {isPlaying ? (
-                              <Pause className="w-8 h-8 text-primary-foreground" />
-                            ) : (
-                              <Play className="w-8 h-8 text-primary-foreground ml-1" />
-                            )}
-                          </div>
-                        </button>
-                      </>
+                  <div className="relative aspect-video rounded-lg overflow-hidden bg-muted shadow-lg">
+                    <video
+                      ref={videoRef}
+                      src={hero.videoLocalPath}
+                      className="w-full h-full"
+                      poster={hero.posterUrl || "/video-poster.jpg"}
+                      onEnded={handleVideoEnded}
+                      onClick={toggleVideo}
+                      playsInline
+                    />
+                    {!isPlaying && (
+                      <button
+                        onClick={toggleVideo}
+                        className="absolute inset-0 flex items-center justify-center bg-background/30 
+                                   hover:bg-background/40 transition-colors group"
+                      >
+                        <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center
+                                        group-hover:scale-110 transition-transform shadow-lg">
+                          <Play className="w-8 h-8 text-primary-foreground ml-1" />
+                        </div>
+                      </button>
+                    )}
+                    {isPlaying && (
+                      <button
+                        onClick={toggleVideo}
+                        className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-background/80 
+                                   hover:bg-background/90 flex items-center justify-center transition-colors shadow-lg"
+                      >
+                        <Pause className="w-6 h-6 text-foreground" />
+                      </button>
                     )}
                   </div>
+                  <p className="text-xs text-muted-foreground mt-2 text-center">
+                    Нажмите на видео для паузы/воспроизведения
+                  </p>
                 </motion.div>
               )}
 
