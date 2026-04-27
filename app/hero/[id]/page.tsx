@@ -106,9 +106,7 @@ export default function HeroPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                <span className="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-sm font-bold text-primary-foreground">
-                  {hero.rank}
-                </span>
+                
                 <span className="text-sm font-medium text-foreground">{hero.rankTitle}</span>
               </motion.div>
             </div>
@@ -123,7 +121,7 @@ export default function HeroPage() {
           >
             <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Star className="w-6 h-6 text-primary" />
-              Подвиг
+              Биография
             </h2>
             <p className="text-muted-foreground leading-relaxed text-lg">{hero.description}</p>
           </motion.div>

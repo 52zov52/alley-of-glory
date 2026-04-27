@@ -127,7 +127,7 @@ export function HeroModal({ hero, onClose }: HeroModalProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <h3 className="text-lg font-semibold text-foreground mb-3">Подвиг</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-3">Биография</h3>
                 <p className="text-muted-foreground leading-relaxed">{hero.description}</p>
               </motion.div>
 
